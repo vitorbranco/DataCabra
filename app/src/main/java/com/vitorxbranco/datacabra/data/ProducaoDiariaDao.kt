@@ -13,6 +13,6 @@ interface ProducaoDiariaDao {
     fun insertAll(producaoDiariaList: List<ProducaoDiaria>)
 
     @Query("select * from producaodiaria")
-    fun getAll(): List<ProducaoDiaria>
+    fun getAll(): LiveData<List<ProducaoDiaria>>
 
 }

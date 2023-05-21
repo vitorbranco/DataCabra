@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">DataCabra</string>
+    <string name="producao_diaria_placeholder" />
 </resources>

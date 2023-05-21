@@ -6,8 +6,11 @@
     tools:context=".presentation.fragments.ProducaoDiariaGraphicsFragment">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Produção Diária Graphics" />
+        android:id="@+id/tvProducaoDiaria"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/producao_diaria_placeholder"
+        android:textSize="16sp" />
+
 
 </FrameLayout>
