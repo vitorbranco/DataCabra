@@ -10,21 +10,20 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.vitorxbranco.datacabra.R
 import com.vitorxbranco.datacabra.presentation.fragments.ControleLeiteiroGraphicsFragment
 import com.vitorxbranco.datacabra.presentation.fragments.ProducaoDiariaGraphicsFragment
+import com.vitorxbranco.datacabra.presentation.viewmodels.ControleLeiteiroGraphicsViewModel
 import com.vitorxbranco.datacabra.presentation.viewmodels.ProducaoDiariaGraphicsViewModel
 
 class GraphicsActivity : AppCompatActivity() {
 
     private lateinit var producaoDiariaViewModel: ProducaoDiariaGraphicsViewModel
-
-//    private val viewModel: ProducaoDiariaGraphicsViewModel by viewModels {
-//        ProducaoDiariaGraphicsViewModel.getVMFactory(application)
-//    }
+    private lateinit var controleLeiteiroViewModel: ControleLeiteiroGraphicsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_graphics)
 
         producaoDiariaViewModel = ViewModelProvider(this, ProducaoDiariaGraphicsViewModel.getVMFactory(application))[ProducaoDiariaGraphicsViewModel::class.java]
+        controleLeiteiroViewModel = ViewModelProvider(this, ControleLeiteiroGraphicsViewModel.getVMFactory(application))[ControleLeiteiroGraphicsViewModel::class.java]
 
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation_view_graphics)

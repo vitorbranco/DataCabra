@@ -13,5 +13,5 @@ interface ControleLeiteiroDao {
     fun insertAll(controleLeiteiroList: List<ControleLeiteiro>)
 
     @Query("select * from controleleiteiro")
-    fun getAll(): List<ControleLeiteiro>
+    fun getAll(): LiveData<List<ControleLeiteiro>>
 }

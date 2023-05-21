@@ -1,5 +1,6 @@
 package com.vitorxbranco.datacabra.presentation.fragments
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,6 +12,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.vitorxbranco.datacabra.R
 import com.vitorxbranco.datacabra.data.ProducaoDiaria
 import com.vitorxbranco.datacabra.presentation.viewmodels.ProducaoDiariaGraphicsViewModel
@@ -24,7 +30,6 @@ class ProducaoDiariaGraphicsFragment : Fragment() {
         producaoDiariaViewModel.producaoDiariaLiveData
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,15 +42,35 @@ class ProducaoDiariaGraphicsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val tvProducaoDiaria = view.findViewById<TextView>(R.id.tvProducaoDiaria)
+        val lineChartProducao = view.findViewById<LineChart>(R.id.lineChart_producao)
 
         producaoDiariaLiveData.observe(viewLifecycleOwner) { producaoDiariaList ->
-            val stringBuilder = StringBuilder()
-            for (producaoDiaria in producaoDiariaList) {
-                stringBuilder.append(producaoDiaria.toString())
-                stringBuilder.append("\n")
+
+            val entries = mutableListOf<Entry>()
+            val labels = mutableListOf<String>()
+
+            for ((index, producaoDiaria) in producaoDiariaList.withIndex()) {
+                val data = producaoDiaria.data
+                val totalLitrosDia = producaoDiaria.totalLitrosDia.toFloat()
+
+                val entry = Entry(index.toFloat(), totalLitrosDia)
+                entries.add(entry)
+                labels.add(data)
             }
-            tvProducaoDiaria.text = stringBuilder.toString()
+
+            val dataSet = LineDataSet(entries, "Produção Diária")
+            val lineData = LineData(dataSet)
+            lineChartProducao.data = lineData
+
+            // Configuração do estilo do gráfico
+            dataSet.color = Color.RED
+            dataSet.valueTextColor = Color.BLACK
+
+            val xAxis = lineChartProducao.xAxis
+            xAxis.valueFormatter = IndexAxisValueFormatter(labels)
+
+            // Exibe o gráfico
+            lineChartProducao.invalidate()
         }
     }
 

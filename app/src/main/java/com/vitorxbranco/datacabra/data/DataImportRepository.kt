@@ -21,11 +21,11 @@ class DataImportRepository(
             it?.let {
                 val producaoDiaria = ProducaoDiaria(
                     id = it.get(0),
-                    totalDeAnimais = it.get(1),
-                    primeiraOrdenha = it.get(2),
-                    segundaOrdenha = it.get(3),
-                    totalLitrosDia = it.get(4),
-                    media = it.get(5),
+                    totalDeAnimais = convertToDecimalFormat(it.get(1)),
+                    primeiraOrdenha = convertToDecimalFormat(it.get(2)),
+                    segundaOrdenha = convertToDecimalFormat(it.get(3)),
+                    totalLitrosDia = convertToDecimalFormat(it.get(4)),
+                    media = convertToDecimalFormat(it.get(5)),
                     data = it.get(6)
                 )
                 listProducao.add(producaoDiaria)
@@ -51,9 +51,9 @@ class DataImportRepository(
                     nome = it.get(3),
                     dataDoParto = it.get(4),
                     baia = it.get(5),
-                    primeiraOrdenha = it.get(6),
-                    segundaOrdenha = it.get(7),
-                    total = it.get(8),
+                    primeiraOrdenha = convertToDecimalFormat(it.get(6)),
+                    segundaOrdenha = convertToDecimalFormat(it.get(7)),
+                    total = convertToDecimalFormat(it.get(8)),
                     dataDoControle = it.get(9),
                     del = it.get(10)
                 )
@@ -63,5 +63,10 @@ class DataImportRepository(
             controleLeiteiroDao.insertAll(listControle)
         }
     }
+
+    private fun convertToDecimalFormat(value: String): String {
+        return value.replace(",", ".")
+    }
+
 
 }

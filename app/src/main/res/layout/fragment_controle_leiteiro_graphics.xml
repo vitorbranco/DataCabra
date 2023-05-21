@@ -5,9 +5,13 @@
     android:layout_height="match_parent"
     tools:context=".presentation.fragments.ControleLeiteiroGraphicsFragment">
 
-    <TextView
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/lineChart_controle"
+        android:layout_marginTop="96dp"
+        android:layout_marginBottom="124dp"
+        android:layout_marginLeft="48dp"
+        android:layout_marginRight="48dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Controle Leiteiro Graphics" />
+        android:layout_height="match_parent"/>
 
 </FrameLayout>
