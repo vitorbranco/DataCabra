@@ -6,10 +6,10 @@
     tools:context=".presentation.fragments.ProducaoDiariaGraphicsFragment">
 
 
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/lineChart_producao"
-        android:layout_marginTop="96dp"
-        android:layout_marginBottom="124dp"
+    <com.github.mikephil.charting.charts.CombinedChart
+        android:id="@+id/combinedChart_producao"
+        android:layout_marginTop="64dp"
+        android:layout_marginBottom="96dp"
         android:layout_marginLeft="48dp"
         android:layout_marginRight="48dp"
         android:layout_width="match_parent"

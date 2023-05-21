@@ -59,7 +59,7 @@ class ControleLeiteiroGraphicsFragment : Fragment() {
             val lineData = LineData(dataSet)
             lineChartControle.data = lineData
 
-            // Configuração do estilo do gráfico
+            // Estilização do gráfico
             dataSet.color = Color.BLUE
             dataSet.valueTextColor = Color.BLACK
 
