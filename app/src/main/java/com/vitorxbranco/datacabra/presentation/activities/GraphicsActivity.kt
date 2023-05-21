@@ -25,7 +25,6 @@ class GraphicsActivity : AppCompatActivity() {
         producaoDiariaViewModel = ViewModelProvider(this, ProducaoDiariaGraphicsViewModel.getVMFactory(application))[ProducaoDiariaGraphicsViewModel::class.java]
         controleLeiteiroViewModel = ViewModelProvider(this, ControleLeiteiroGraphicsViewModel.getVMFactory(application))[ControleLeiteiroGraphicsViewModel::class.java]
 
-
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation_view_graphics)
 
         val producaoDiariaGraphicsFragment = ProducaoDiariaGraphicsFragment.newInstance()

@@ -6,6 +6,7 @@
     tools:context=".presentation.fragments.ControleLeiteiroStatsFragment">
 
     <TextView
+        android:id="@+id/tv_teste_controle_leiteiro"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="Controle Leiteiro" />
