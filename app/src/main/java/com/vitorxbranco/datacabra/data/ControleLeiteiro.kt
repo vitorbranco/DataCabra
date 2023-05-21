@@ -3,19 +3,17 @@ package com.vitorxbranco.datacabra.data
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "controle_leiteiro_tabela")
+@Entity
 data class ControleLeiteiro(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    val id2: String,
-    val microchip: Long,
-    val numeroDoAnimal: Int,
+    @PrimaryKey(autoGenerate = false) val id: String,
+    val microchip: String,
+    val numeroDoAnimal: String,
     val nome: String,
     val dataDoParto: String,
-    val baia: Int,
-    val primeiraOrdenha: Float,
-    val segundaOrdenha: Float,
-    val total: Float,
+    val baia: String,
+    val primeiraOrdenha: String,
+    val segundaOrdenha: String,
+    val total: String,
     val dataDoControle: String,
-    val del: Int,
-    val obs: String
+    val del: String,
 )

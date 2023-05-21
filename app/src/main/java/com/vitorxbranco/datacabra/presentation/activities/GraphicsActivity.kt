@@ -1,10 +1,12 @@
-package com.vitorxbranco.datacabra.presentation
+package com.vitorxbranco.datacabra.presentation.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.commit
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.vitorxbranco.datacabra.R
+import com.vitorxbranco.datacabra.presentation.fragments.ControleLeiteiroGraphicsFragment
+import com.vitorxbranco.datacabra.presentation.fragments.ProducaoDiariaGraphicsFragment
 
 class GraphicsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

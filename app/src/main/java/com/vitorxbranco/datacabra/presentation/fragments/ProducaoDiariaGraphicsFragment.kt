@@ -1,4 +1,4 @@
-package com.vitorxbranco.datacabra.presentation
+package com.vitorxbranco.datacabra.presentation.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,27 +9,27 @@ import com.vitorxbranco.datacabra.R
 
 /**
  * A simple [Fragment] subclass.
- * Use the [ProducaoDiariaStatsFragment.newInstance] factory method to
+ * Use the [ProducaoDiariaGraphicsFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ProducaoDiariaStatsFragment : Fragment() {
+class ProducaoDiariaGraphicsFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_producao_diaria_stats, container, false)
+        return inflater.inflate(R.layout.fragment_producao_diaria_graphics, container, false)
     }
 
     companion object {
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
-         * @return A new instance of fragment ProducaoDiariaStatsFragment.
+         * @return A new instance of fragment ProducaoDiariaGraphicsFragment.
          */
         @JvmStatic
         fun newInstance() =
-            ProducaoDiariaStatsFragment()
+            ProducaoDiariaGraphicsFragment()
     }
 }

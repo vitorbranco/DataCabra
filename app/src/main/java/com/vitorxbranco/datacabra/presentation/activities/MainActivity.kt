@@ -1,10 +1,16 @@
-package com.vitorxbranco.datacabra.presentation
+package com.vitorxbranco.datacabra.presentation.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.cardview.widget.CardView
+import androidx.room.Room
 import com.vitorxbranco.datacabra.R
+import com.vitorxbranco.datacabra.data.AppDatabase
+import com.vitorxbranco.datacabra.data.ControleLeiteiroDao
+import com.vitorxbranco.datacabra.data.DataImportRepository
+import com.vitorxbranco.datacabra.data.ProducaoDiariaDao
+import java.io.BufferedReader
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -10,9 +10,9 @@ import androidx.room.Query
 interface ProducaoDiariaDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(producaoDiaria: ProducaoDiaria)
+    fun insertAll(producaoDiariaList: List<ProducaoDiaria>)
 
-    @Query("select * from producao_diaria_tabela")
-    fun getAll(): LiveData<List<ProducaoDiaria>>
+    @Query("select * from producaodiaria")
+    fun getAll(): List<ProducaoDiaria>
 
 }

@@ -10,8 +10,8 @@ import androidx.room.Query
 interface ControleLeiteiroDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(controleLeiteiro: ControleLeiteiro)
+    fun insertAll(controleLeiteiroList: List<ControleLeiteiro>)
 
-    @Query("select * from controle_leiteiro_tabela")
-    fun getAll(): LiveData<List<ControleLeiteiro>>
+    @Query("select * from controleleiteiro")
+    fun getAll(): List<ControleLeiteiro>
 }
