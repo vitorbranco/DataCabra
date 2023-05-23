@@ -1,6 +1,7 @@
 package com.vitorxbranco.datacabra
 
 import android.app.Application
+import android.content.Context
 import androidx.room.Room
 import com.vitorxbranco.datacabra.data.AppDatabase
 import com.vitorxbranco.datacabra.data.DataImportRepository
@@ -29,7 +30,6 @@ class DataCabraApplication : Application() {
             dataImportRepository.importDataFromProducaoCSV()
             dataImportRepository.importDataFromControleCSV()
         }
-
     }
 
     fun getAppDatabase(): AppDatabase{

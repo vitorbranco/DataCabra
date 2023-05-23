@@ -1,6 +1,7 @@
 package com.vitorxbranco.datacabra.data
 
 import android.content.Context
+import com.vitorxbranco.datacabra.presentation.viewmodels.ControleLeiteiroGraphicsViewModel
 import org.apache.commons.csv.CSVFormat
 import org.apache.commons.csv.CSVParser
 
@@ -42,6 +43,7 @@ class DataImportRepository(
             CSVFormat.DEFAULT.withFirstRecordAsHeader()
         )
         val listControle = mutableListOf<ControleLeiteiro>()
+
         csvParser.forEach {
             it?.let {
                 val controleLeiteiro = ControleLeiteiro(
@@ -67,6 +69,4 @@ class DataImportRepository(
     private fun convertToDecimalFormat(value: String): String {
         return value.replace(",", ".")
     }
-
-
 }

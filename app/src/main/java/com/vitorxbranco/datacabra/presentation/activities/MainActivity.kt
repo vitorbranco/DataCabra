@@ -5,11 +5,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.cardview.widget.CardView
 import androidx.room.Room
+import com.vitorxbranco.datacabra.DataCabraApplication
 import com.vitorxbranco.datacabra.R
 import com.vitorxbranco.datacabra.data.AppDatabase
 import com.vitorxbranco.datacabra.data.ControleLeiteiroDao
 import com.vitorxbranco.datacabra.data.DataImportRepository
 import com.vitorxbranco.datacabra.data.ProducaoDiariaDao
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.io.BufferedReader
 
 class MainActivity : AppCompatActivity() {

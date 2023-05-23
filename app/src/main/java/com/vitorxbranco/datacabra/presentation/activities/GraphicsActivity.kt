@@ -7,6 +7,7 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.vitorxbranco.datacabra.DataCabraApplication
 import com.vitorxbranco.datacabra.R
 import com.vitorxbranco.datacabra.presentation.fragments.ControleLeiteiroGraphicsFragment
 import com.vitorxbranco.datacabra.presentation.fragments.ProducaoDiariaGraphicsFragment

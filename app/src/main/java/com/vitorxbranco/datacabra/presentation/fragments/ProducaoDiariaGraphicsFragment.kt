@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.CombinedChart
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.*
@@ -29,6 +30,10 @@ class ProducaoDiariaGraphicsFragment : Fragment() {
         producaoDiariaViewModel.producaoDiariaLiveData
     }
 
+    private val barEntryLiveData: LiveData<List<BarEntry>> by lazy {
+        producaoDiariaViewModel.barEntryLiveData
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -40,51 +45,34 @@ class ProducaoDiariaGraphicsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val combinedChartProducao = view.findViewById<CombinedChart>(R.id.combinedChart_producao)
+        val barChartProducao = view.findViewById<BarChart>(R.id.barChart_producao)
 
-        producaoDiariaLiveData.observe(viewLifecycleOwner) { producaoDiariaList ->
+        barEntryLiveData.observe(viewLifecycleOwner) { barEntryList ->
             val entriesLine = mutableListOf<Entry>()
-            val entriesBar = mutableListOf<BarEntry>()
+            val entriesBar = barEntryList.toMutableList()
             val labels = mutableListOf<String>()
 
-            for ((index, producaoDiaria) in producaoDiariaList.withIndex()) {
-                val data = producaoDiaria.data
-                val totalLitrosDia = producaoDiaria.totalLitrosDia.toFloat()
-                val primeiraOrdenha = producaoDiaria.primeiraOrdenha.toFloat()
+            for ((index, barEntry) in barEntryList.withIndex()) {
+                val data = barEntry.data as? ProducaoDiaria
+                if (data != null){
+                    val primeiraOrdenha = barEntry.y
 
-                val entryLine = Entry(index.toFloat(), primeiraOrdenha)
-                entriesLine.add(entryLine)
+                    val entryLine = Entry(index.toFloat(), primeiraOrdenha)
+                    entriesLine.add(entryLine)
 
-                val entryBar = BarEntry(index.toFloat(), totalLitrosDia)
-                entriesBar.add(entryBar)
-
-                labels.add(data)
-
+                    labels.add(data.data)
+                }
             }
 
-            val dataSetLine = LineDataSet(entriesLine, "Primeira Ordenha")
             val dataSetBar = BarDataSet(entriesBar, "Total de litros por dia")
 
-            val data = CombinedData()
-            data.setData(LineData(dataSetLine))
-            data.setData(BarData(dataSetBar))
-
-            combinedChartProducao.data = data
-
-            // Configuração do estilo do gráfico de linhas
-            dataSetLine.color = Color.RED
-            dataSetLine.valueTextColor = Color.BLACK
-
-            // Configuração do estilo do gráfico de barras
             dataSetBar.color = Color.GREEN
             dataSetBar.valueTextColor = Color.BLACK
 
-            //Define o eixo X
-            val xAxis = combinedChartProducao.xAxis
-            xAxis.valueFormatter = IndexAxisValueFormatter(labels)
+            val data = BarData(dataSetBar)
 
-            // Exibe o gráfico
-            combinedChartProducao.invalidate()
+            barChartProducao.data = data
+            barChartProducao.invalidate()
         }
     }
 

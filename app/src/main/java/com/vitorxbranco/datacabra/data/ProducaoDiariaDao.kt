@@ -15,4 +15,7 @@ interface ProducaoDiariaDao {
     @Query("select * from producaodiaria")
     fun getAll(): LiveData<List<ProducaoDiaria>>
 
+    @Query("DELETE from producaodiaria")
+    fun deleteAll()
+
 }

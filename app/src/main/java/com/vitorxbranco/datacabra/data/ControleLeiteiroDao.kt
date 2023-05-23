@@ -14,4 +14,10 @@ interface ControleLeiteiroDao {
 
     @Query("select * from controleleiteiro")
     fun getAll(): LiveData<List<ControleLeiteiro>>
+
+    @Query("DELETE from controleleiteiro")
+    fun deleteAll()
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(controleLeiteiro: ControleLeiteiro)
 }
