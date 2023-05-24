@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
+import com.github.mikephil.charting.data.BarEntry
 import com.vitorxbranco.datacabra.R
 import com.vitorxbranco.datacabra.data.ControleLeiteiro
 import com.vitorxbranco.datacabra.data.ProducaoDiaria
@@ -20,8 +22,8 @@ class ProducaoDiariaStatsFragment : Fragment() {
     private val producaoDiariaViewModel : ProducaoDiariaGraphicsViewModel by lazy {
         ViewModelProvider(requireActivity())[ProducaoDiariaGraphicsViewModel::class.java]
     }
-    private val producaoDiariaLiveData: LiveData<List<ProducaoDiaria>> by lazy {
-        producaoDiariaViewModel.producaoDiariaLiveData
+    private val barEntryLiveData: MutableLiveData<List<BarEntry>> by lazy {
+        producaoDiariaViewModel.barEntryLiveData
     }
 
     override fun onCreateView(
@@ -35,36 +37,37 @@ class ProducaoDiariaStatsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         tvTesteProducaoDiaria = view.findViewById(R.id.tv_teste_producao_diaria)
+        producaoDiariaViewModel.updateBarEntryLiveData()
 
-        producaoDiariaLiveData.observe(viewLifecycleOwner) { controleLeiteiroList ->
+        barEntryLiveData.observe(viewLifecycleOwner) { controleLeiteiroList ->
             calcStatsAndUpdateText(controleLeiteiroList)
         }
 
     }
 
-    fun calcStatsAndUpdateText(producaoDiariaList: List<ProducaoDiaria>) {
-        if (producaoDiariaList.isNotEmpty()) {
-            var maxPrimeiraOrdenha: Float = producaoDiariaList[0].primeiraOrdenha.toFloat()
-            var minPrimeiraOrdenha: Float = producaoDiariaList[0].primeiraOrdenha.toFloat()
-            var maxSegundaOrdenha: Float = producaoDiariaList[0].segundaOrdenha.toFloat()
-            var minSegundaOrdenha: Float = producaoDiariaList[0].segundaOrdenha.toFloat()
+    fun calcStatsAndUpdateText(barEntryList: List<BarEntry>) {
+        if (barEntryList.isNotEmpty()) {
+            var maxPrimeiraOrdenha: Float = barEntryList[0].x
+            var minPrimeiraOrdenha: Float = barEntryList[0].x
+            var maxTotalLitrosDia: Float = barEntryList[0].y.toFloat()
+            var minTotalLitrosDia: Float = barEntryList[0].y
 
-            for (producaoDiaria in producaoDiariaList) {
-                if (producaoDiaria.primeiraOrdenha.toFloat() > maxPrimeiraOrdenha) {
-                    maxPrimeiraOrdenha = producaoDiaria.primeiraOrdenha.toFloat()
+            for (barEntry in barEntryList) {
+                if (barEntry.x > maxPrimeiraOrdenha) {
+                    maxPrimeiraOrdenha = barEntry.x
                 }
-                if (producaoDiaria.primeiraOrdenha.toFloat() < minPrimeiraOrdenha) {
-                    minPrimeiraOrdenha = producaoDiaria.primeiraOrdenha.toFloat()
+                if (barEntry.x < minPrimeiraOrdenha) {
+                    minPrimeiraOrdenha = barEntry.x
                 }
-                if (producaoDiaria.segundaOrdenha.toFloat() > maxSegundaOrdenha) {
-                    maxSegundaOrdenha = producaoDiaria.segundaOrdenha.toFloat()
+                if (barEntry.y > maxTotalLitrosDia) {
+                    maxTotalLitrosDia = barEntry.y
                 }
-                if (producaoDiaria.segundaOrdenha.toFloat() < minSegundaOrdenha) {
-                    minSegundaOrdenha = producaoDiaria.segundaOrdenha.toFloat()
+                if (barEntry.y < minTotalLitrosDia) {
+                    minTotalLitrosDia = barEntry.y
                 }
             }
 
-            val texto = "Máximo 1ªOrdenha: $maxPrimeiraOrdenha\nMínimo 1ªOrdenha: $minPrimeiraOrdenha\nMáximo 2ªOrdenha: $maxSegundaOrdenha\nMínimo 2ªOrdenha: $minSegundaOrdenha"
+            val texto = "Máximo 1ªOrdenha: $maxPrimeiraOrdenha\nMínimo 1ªOrdenha: $minPrimeiraOrdenha\nMáximo Total de Litros por Dia: $maxTotalLitrosDia\nMínimo Total de Litros por Dia: $minTotalLitrosDia"
             tvTesteProducaoDiaria.text = texto
 
         } else {

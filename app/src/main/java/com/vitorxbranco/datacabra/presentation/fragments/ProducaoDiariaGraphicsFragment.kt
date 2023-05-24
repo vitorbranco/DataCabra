@@ -26,9 +26,6 @@ class ProducaoDiariaGraphicsFragment : Fragment() {
     private val producaoDiariaViewModel: ProducaoDiariaGraphicsViewModel by lazy {
         ViewModelProvider(requireActivity())[ProducaoDiariaGraphicsViewModel::class.java]
     }
-    private val producaoDiariaLiveData: LiveData<List<ProducaoDiaria>> by lazy {
-        producaoDiariaViewModel.producaoDiariaLiveData
-    }
 
     private val barEntryLiveData: LiveData<List<BarEntry>> by lazy {
         producaoDiariaViewModel.barEntryLiveData
@@ -46,25 +43,19 @@ class ProducaoDiariaGraphicsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val barChartProducao = view.findViewById<BarChart>(R.id.barChart_producao)
+        producaoDiariaViewModel.updateBarEntryLiveData()
 
-        barEntryLiveData.observe(viewLifecycleOwner) { barEntryList ->
-            val entriesLine = mutableListOf<Entry>()
-            val entriesBar = barEntryList.toMutableList()
-            val labels = mutableListOf<String>()
+        barEntryLiveData.observe(viewLifecycleOwner) {barEntryList ->
+            val entries = mutableListOf<BarEntry>()
 
             for ((index, barEntry) in barEntryList.withIndex()) {
-                val data = barEntry.data as? ProducaoDiaria
-                if (data != null){
-                    val primeiraOrdenha = barEntry.y
+                val totalDeLitros = barEntry.y
 
-                    val entryLine = Entry(index.toFloat(), primeiraOrdenha)
-                    entriesLine.add(entryLine)
-
-                    labels.add(data.data)
-                }
+                val entry = BarEntry(index.toFloat(),totalDeLitros)
+                entries.add(entry)
             }
 
-            val dataSetBar = BarDataSet(entriesBar, "Total de litros por dia")
+            val dataSetBar = BarDataSet(entries, "Total de litros por dia")
 
             dataSetBar.color = Color.GREEN
             dataSetBar.valueTextColor = Color.BLACK

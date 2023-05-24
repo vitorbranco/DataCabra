@@ -13,9 +13,11 @@ interface ProducaoDiariaDao {
     fun insertAll(producaoDiariaList: List<ProducaoDiaria>)
 
     @Query("select * from producaodiaria")
-    fun getAll(): LiveData<List<ProducaoDiaria>>
+    fun getAll(): List<ProducaoDiaria>
 
     @Query("DELETE from producaodiaria")
     fun deleteAll()
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(controleLeiteiro: ControleLeiteiro)
 }

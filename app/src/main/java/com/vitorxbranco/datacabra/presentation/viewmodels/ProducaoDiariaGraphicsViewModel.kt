@@ -1,29 +1,38 @@
 package com.vitorxbranco.datacabra.presentation.viewmodels
 
 import android.app.Application
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
 import com.github.mikephil.charting.data.BarEntry
 import com.vitorxbranco.datacabra.DataCabraApplication
 import com.vitorxbranco.datacabra.data.ProducaoDiaria
 import com.vitorxbranco.datacabra.data.ProducaoDiariaDao
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class ProducaoDiariaGraphicsViewModel(private val producaoDiariaDao: ProducaoDiariaDao) : ViewModel() {
+class ProducaoDiariaGraphicsViewModel(
+    private val producaoDiariaDao: ProducaoDiariaDao,
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
+) : ViewModel() {
 
-    val producaoDiariaLiveData: LiveData<List<ProducaoDiaria>> = producaoDiariaDao.getAll()
+    val barEntryLiveData: MutableLiveData<List<BarEntry>> = MutableLiveData<List<BarEntry>>()
+    private val barEntryList: ArrayList<BarEntry> = arrayListOf()
 
-    val barEntryLiveData: LiveData<List<BarEntry>> = MediatorLiveData<List<BarEntry>>().apply {
-        addSource(producaoDiariaLiveData) { producaoDiariaList ->
-            // Transforma objetos ProducaoDiaria em objetos BarEntry
-            val barEntryList = producaoDiariaList.map { producaoDiaria ->
-                BarEntry(producaoDiaria.primeiraOrdenha.toFloat(), producaoDiaria.totalLitrosDia.toFloat())
-            }
-            // Atualiza o LiveData com a lista de BarEntry
-            postValue(barEntryList)
+    fun updateBarEntryLiveData() {
+        viewModelScope.launch(dispatcher) {
+            val producaoList = producaoDiariaDao.getAll()
+            convertProducaoToBarEntry(producaoList)
+            barEntryLiveData.postValue(barEntryList)
         }
     }
+
+    private fun convertProducaoToBarEntry(list: List<ProducaoDiaria>) {
+        list.forEach { parametro ->
+            val barEntry = BarEntry(parametro.primeiraOrdenha.toFloat(), parametro.totalLitrosDia.toFloat())
+            barEntryList.add(barEntry)
+        }
+    }
+
 
     companion object {
 
@@ -37,5 +46,4 @@ class ProducaoDiariaGraphicsViewModel(private val producaoDiariaDao: ProducaoDia
             }
         }
     }
-
 }

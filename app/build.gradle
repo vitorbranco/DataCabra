@@ -74,7 +74,6 @@ dependencies {
     implementation "androidx.fragment:fragment-ktx:$fragment_version"
 
     implementation 'com.opencsv:opencsv:5.5.2'
-
     implementation 'org.apache.commons:commons-csv:1.5'
 
     testImplementation "androidx.room:room-testing:$room_version"
@@ -85,8 +84,12 @@ dependencies {
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
     testImplementation "org.mockito:mockito-core:4.5.1"
     testImplementation "org.mockito.kotlin:mockito-kotlin:4.1.0"
-    testImplementation "androidx.arch.core:core-testing:2.2.0"
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
+
+    testImplementation "androidx.test:core-ktx:1.4.1-alpha03"
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
+    testImplementation "org.robolectric:robolectric:4.5.1"
+
 
 
 }
