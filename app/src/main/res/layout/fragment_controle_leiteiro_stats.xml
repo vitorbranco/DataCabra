@@ -9,6 +9,10 @@
         android:id="@+id/tv_teste_controle_leiteiro"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Controle Leiteiro" />
+        android:layout_margin="48dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="Controle Leiteiro"
+        android:textColor="@color/black"
+        android:textSize="24sp" />
 
 </FrameLayout>

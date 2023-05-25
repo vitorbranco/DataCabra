@@ -64,7 +64,7 @@ class ControleLeiteiroStatsFragment : Fragment() {
                 }
             }
 
-            val texto = "Máximo Total: $maxTotal\nMínimo Total: $minTotal\nMáximo DEL: $maxDel\nMínimo DEL: $minDel"
+            val texto = "Máximo Total: $maxTotal\n \nMínimo Total: $minTotal\n \nMáximo DEL: $maxDel\n \nMínimo DEL: $minDel"
             tvTesteControleLeiteiro.text = texto
 
         } else {

@@ -67,7 +67,7 @@ class ProducaoDiariaStatsFragment : Fragment() {
                 }
             }
 
-            val texto = "Máximo 1ªOrdenha: $maxPrimeiraOrdenha\nMínimo 1ªOrdenha: $minPrimeiraOrdenha\nMáximo Total de Litros por Dia: $maxTotalLitrosDia\nMínimo Total de Litros por Dia: $minTotalLitrosDia"
+            val texto = "Máximo 1ªOrdenha: $maxPrimeiraOrdenha\n \nMínimo 1ªOrdenha: $minPrimeiraOrdenha\n \nMáximo Total de Litros por Dia: $maxTotalLitrosDia\n \nMínimo Total de Litros por Dia: $minTotalLitrosDia"
             tvTesteProducaoDiaria.text = texto
 
         } else {
